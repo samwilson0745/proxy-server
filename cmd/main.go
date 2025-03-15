@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"proxy-server/helper"
 	"proxy-server/server"
 )
 
@@ -14,9 +15,10 @@ func main() {
 	clearCache := flag.Bool("clear-cache", false, "Clear the cache")
 
 	flag.Parse()
+	helper.GetRedisClient()
 
 	if *clearCache {
-		err := server.ClearCache()
+		err := helper.ClearRedis()
 		if err != nil {
 			log.Fatalf("Error clearing cache: %v\n", err)
 		}
